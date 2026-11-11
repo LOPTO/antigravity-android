@@ -6,6 +6,7 @@ import android.webkit.WebView;
 
 import com.agy.bridge.AndroidBridge;
 import com.agy.theme.ThemeManager;
+import com.agy.ui.UiLanguage;
 import com.agy.util.AssetReader;
 
 /**
@@ -45,7 +46,8 @@ public final class AppLoader {
         }
         String origin = "https://127.0.0.1:" + port + "/";
         String historyUrl = origin + "?hostTheme=" + hostTheme;
-        webView.loadDataWithBaseURL(origin, AppHtmlInjector.inject(html, bridge, theme),
+        webView.loadDataWithBaseURL(origin,
+                AppHtmlInjector.inject(html, bridge, theme, UiLanguage.current(context)),
                 "text/html", "UTF-8", historyUrl);
     }
 }

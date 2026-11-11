@@ -16,6 +16,9 @@ src/boot/custom-elements-guard.js
 bundle iife boot/theme-bootstrap.js
 src/boot/theme-bootstrap.js
 
+bundle iife boot/i18n.js
+src/i18n/boot.js
+
 bundle iife bridge.core.js
 src/core/namespace.js
 src/core/polyfills-process.js

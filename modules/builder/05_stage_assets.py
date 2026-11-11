@@ -39,7 +39,7 @@ def stage_assets(staging_dir, no_bypass=False):
         if os.path.exists(web_dst):
             shutil.rmtree(web_dst)
         def web_ignore(directory, files):
-            ignored = set()
+            ignored = {"__pycache__"}.intersection(files)
             rel_dir = os.path.relpath(directory, web_src)
             if rel_dir == ".":
                 for name in ("main.js", "src", "tests", "build.sh", "patch_main.py", "src.manifest"):

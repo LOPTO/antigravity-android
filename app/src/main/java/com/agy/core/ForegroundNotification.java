@@ -7,6 +7,9 @@ import android.app.Service;
 import android.content.pm.ServiceInfo;
 import android.os.Build;
 
+import com.agy.R;
+import com.agy.ui.UiLanguage;
+
 /** Builds and updates the low-importance ongoing core notification. */
 public final class ForegroundNotification {
 
@@ -21,10 +24,11 @@ public final class ForegroundNotification {
                 (NotificationManager) service.getSystemService(Service.NOTIFICATION_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && manager != null) {
             NotificationChannel channel = new NotificationChannel(
-                    CHANNEL_ID, "Core", NotificationManager.IMPORTANCE_LOW);
+                    CHANNEL_ID, UiLanguage.text(service, R.string.core_notification_channel),
+                    NotificationManager.IMPORTANCE_LOW);
             manager.createNotificationChannel(channel);
         }
-        Notification notification = build(service, "Core running");
+        Notification notification = build(service, R.string.core_notification_running);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             service.startForeground(NOTIFICATION_ID, notification,
                     ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
@@ -33,7 +37,7 @@ public final class ForegroundNotification {
         }
     }
 
-    public static void update(Service service, String status) {
+    public static void update(Service service, int status) {
         NotificationManager manager =
                 (NotificationManager) service.getSystemService(Service.NOTIFICATION_SERVICE);
         if (manager != null) {
@@ -41,7 +45,7 @@ public final class ForegroundNotification {
         }
     }
 
-    private static Notification build(Service service, String status) {
+    private static Notification build(Service service, int status) {
         int icon = service.getResources().getIdentifier(
                 "ic_notification", "drawable", service.getPackageName());
         if (icon == 0) {
@@ -52,7 +56,7 @@ public final class ForegroundNotification {
                 : new Notification.Builder(service);
         return builder
                 .setContentTitle("Antigravity")
-                .setContentText(status)
+                .setContentText(UiLanguage.text(service, status))
                 .setSmallIcon(icon)
                 .setOngoing(true)
                 .build();

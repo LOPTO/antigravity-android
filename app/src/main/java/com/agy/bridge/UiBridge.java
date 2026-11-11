@@ -67,4 +67,12 @@ public final class UiBridge {
             }
         });
     }
+
+    public void setUiLanguage(String language) {
+        WeakReference<MainActivity> reference = activityRef;
+        MainActivity host = reference == null ? null : reference.get();
+        if (host != null) {
+            host.runOnUiThread(() -> host.setUiLanguage(language));
+        }
+    }
 }

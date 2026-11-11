@@ -7,6 +7,7 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 
+import com.agy.R;
 import com.agy.theme.ThemeManager;
 
 /**
@@ -80,7 +81,7 @@ public final class SplashController {
         setVisible();
         if (mode != MODE_TRANSIENT) {
             mode = MODE_TRANSIENT;
-            SplashOverlayHtml.show(view, "Restarting Antigravity", message,
+            SplashOverlayHtml.show(view, R.string.splash_restarting, message,
                     foreground(), background(), false);
         }
     }
@@ -94,7 +95,7 @@ public final class SplashController {
         mode = MODE_ERROR;
         setVisible();
         SplashRetryBridge.bind(view, context, retryListener);
-        SplashOverlayHtml.show(view, "Antigravity failed to start", message,
+        SplashOverlayHtml.show(view, R.string.splash_start_failed, message,
                 foreground(), background(), retryListener != null);
     }
 

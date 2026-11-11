@@ -60,6 +60,12 @@ while [ $# -gt 0 ]; do
     esac
 done
 
+if [ "$DEV_MODE" = "0" ] || [ -n "${AGY_SIGNING_KEYSTORE:-}" ]; then
+    : "${AGY_SIGNING_KEYSTORE:?Set AGY_SIGNING_KEYSTORE to the Fork signing keystore}"
+    : "${AGY_SIGNING_STORE_PASSWORD:?Set AGY_SIGNING_STORE_PASSWORD}"
+    [ -f "$AGY_SIGNING_KEYSTORE" ] || { echo "Signing keystore file not found" >&2; exit 1; }
+fi
+
 BASE_PREFIX="${CUSTOM_PREFIX:-antigravity}"
 
 if [ -n "$CUSTOM_OUT" ]; then
@@ -144,7 +150,7 @@ python3 "$SCRIPT_DIR/align.py" "$BUILD_DIR/unaligned.apk" "$BUILD_DIR/aligned.ap
 
 # Phase 08: Sign and Verify APK
 echo -e "\n>>> [8/8] Signing and Verifying APK..."
-bash "$SCRIPT_DIR/08_sign.sh" "$BUILD_DIR/aligned.apk" "$OUT_APK" "$TOOLS_DIR/debug.keystore"
+bash "$SCRIPT_DIR/08_sign.sh" "$BUILD_DIR/aligned.apk" "$OUT_APK"
 bash "$SCRIPT_DIR/09_verify.sh" "$OUT_APK"
 
 echo "============================================================"

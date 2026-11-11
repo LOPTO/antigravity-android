@@ -24,7 +24,7 @@ public final class AppHtmlInjector {
     private AppHtmlInjector() {
     }
 
-    public static String inject(String html, AndroidBridge bridge, ThemeManager theme) {
+    public static String inject(String html, AndroidBridge bridge, ThemeManager theme, String language) {
         String boot;
         try {
             JSONObject config = new JSONObject(bridge.getConfig());
@@ -43,6 +43,7 @@ public final class AppHtmlInjector {
                             : (theme != null && theme.mode() == com.agy.theme.ThemeColors.MODE_LIGHT ? "light" : "system")) + ";"
                     + "window.__AG_RESOLVED_THEME__="
                     + JSONObject.quote(theme != null ? theme.getTheme() : "light") + ";"
+                    + "window.__AG_UI_LANGUAGE__=" + JSONObject.quote(language) + ";"
                     + "window.__AG_NATIVE_BRIDGE_TOKEN__="
                     + JSONObject.quote(bridge.getBlobBridgeToken()) + ";"
                     + "window.AndroidBridge=window.Android;"

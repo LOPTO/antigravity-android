@@ -72,14 +72,24 @@ No PRoot, chroot, or virtualization overhead. Antigravity runs **bare-metal insi
 
 ### Building & Testing
 
+**简体中文 Fork**（基于上游 `v2.4.1`）默认使用简体中文。在「设置 → 外观 → 界面语言」可以切换到 English，界面会重新加载。
+
+在 Fork 的 Actions 中从汉化分支手动运行 **Build Simplified Chinese APK**，下载 `antigravity-zh` 构建产物。配置 `APK_SIGNING_KEYSTORE_BASE64`、`APK_SIGNING_STORE_PASSWORD` 两个 Actions Secrets，并将证书的小写 SHA-256 指纹写入 `APK_SIGNING_CERT_SHA256` 变量。真机验收后，将与 `APP_VERSION_NAME` 对应的 `v*-zh.*` 标签推送到 Fork 即可发布。
+
+APK 使用 `com.agy` 包名。已有同包名应用时，请核对签名并确认数据迁移方式。后续升级沿用同一签名并提高 `APP_VERSION_CODE`。
+
 ```bash
-# Build standard release APK (dist/antigravity.apk):
-bash build.sh
+# Build the standard release APK (dist/antigravity-zh.apk):
+export AGY_SIGNING_KEYSTORE=/path/to/antigravity-zh.p12
+read -rs AGY_SIGNING_STORE_PASSWORD
+export AGY_SIGNING_STORE_PASSWORD
+bash build.sh --standard --prefix antigravity-zh
+unset AGY_SIGNING_STORE_PASSWORD
 
-# Build release APK with region bypass (dist/antigravity-region-bypass.apk):
-bash build.sh --region-bypass
+# Verify the Web patches and the assets inside the APK:
+bash web/tests/selftest.sh dist/antigravity-zh.apk
 
-# Run all test suites:
+# Run all test suites on Android ARM64:
 bash test_all_modules.sh
 ```
 

@@ -8,8 +8,10 @@ import android.os.Build;
 import android.os.Environment;
 import android.widget.Toast;
 
+import com.agy.R;
 import com.agy.core.CoreRuntimeState;
 import com.agy.runtime.RuntimeConfig;
+import com.agy.ui.UiLanguage;
 import com.agy.util.SensitiveDataRedactor;
 
 import java.io.BufferedReader;
@@ -101,10 +103,12 @@ public final class LogExporter {
             if (cm != null) {
                 ClipData clip = ClipData.newPlainText("Antigravity Logs", report);
                 cm.setPrimaryClip(clip);
-                Toast.makeText(context, "Logs copied to clipboard", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, UiLanguage.text(context, R.string.logs_copied),
+                        Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Toast.makeText(context, "Failed to copy logs: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, UiLanguage.text(context, R.string.logs_copy_error, e.getMessage()),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -148,9 +152,11 @@ public final class LogExporter {
             }
 
             if (savedFile != null) {
-                Toast.makeText(context, "Logs saved to " + savedFile.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, UiLanguage.text(context, R.string.logs_saved, savedFile.getAbsolutePath()),
+                        Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(context, "Could not write logs to Downloads", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, UiLanguage.text(context, R.string.logs_write_error),
+                        Toast.LENGTH_SHORT).show();
             }
 
             Intent sendIntent = new Intent(Intent.ACTION_SEND);
@@ -160,11 +166,12 @@ public final class LogExporter {
                 sendIntent.putExtra(Intent.EXTRA_TEXT, report);
             }
             sendIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            Intent chooser = Intent.createChooser(sendIntent, "Share logs");
+            Intent chooser = Intent.createChooser(sendIntent, UiLanguage.text(context, R.string.logs_share));
             chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(chooser);
         } catch (Exception e) {
-            Toast.makeText(context, "Failed to export logs: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, UiLanguage.text(context, R.string.logs_export_error, e.getMessage()),
+                    Toast.LENGTH_SHORT).show();
         }
     }
 }

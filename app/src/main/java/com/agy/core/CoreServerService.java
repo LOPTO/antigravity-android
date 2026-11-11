@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.os.Looper;
 import android.util.Log;
 
+import com.agy.R;
 import com.agy.runtime.RuntimeManager;
 
 import java.io.File;
@@ -124,7 +125,7 @@ public final class CoreServerService extends Service {
                     openUrlWatcher.stop();
                 }
                 ForegroundNotification.update(CoreServerService.this,
-                        "Core stopped — open app to retry");
+                        R.string.core_notification_stopped);
             }
         });
     }

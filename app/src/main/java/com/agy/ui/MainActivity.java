@@ -23,6 +23,7 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.agy.R;
 import com.agy.bridge.AndroidBridge;
 import com.agy.core.CoreRuntimeState;
 import com.agy.core.CoreServiceLauncher;
@@ -125,7 +126,8 @@ public class MainActivity extends Activity
         }
         if (!appLoaded && CoreRuntimeState.serverUrl == null && !splash.isFatalShown()
                 && System.currentTimeMillis() > splashDeadline) {
-            splash.showFatalError("core did not start within " + (SPLASH_TIMEOUT_MS / 1000) + "s");
+            splash.showFatalError(UiLanguage.text(this, R.string.core_start_timeout,
+                    SPLASH_TIMEOUT_MS / 1000));
         }
     }
 
@@ -171,8 +173,8 @@ public class MainActivity extends Activity
         try {
             CoreServiceLauncher.start(this);
         } catch (Exception e) {
-            showFatalError("cannot start core service: "
-                    + (e.getMessage() == null ? e.getClass().getSimpleName() : e.getMessage()));
+            showFatalError(UiLanguage.text(this, R.string.core_start_error,
+                    e.getMessage() == null ? e.getClass().getSimpleName() : e.getMessage()));
         }
     }
 
@@ -217,6 +219,13 @@ public class MainActivity extends Activity
 
     public boolean isDesktopMode() {
         return webViewHost != null ? webViewHost.isDesktopMode() : DesktopModePrefs.isDesktopMode(this);
+    }
+
+    public void setUiLanguage(String language) {
+        if (!isFinishing() && !isDestroyed() && webViewHost != null
+                && UiLanguage.select(this, language)) {
+            webViewHost.loadApp();
+        }
     }
 
     public void setDesktopMode(boolean enabled) {
@@ -368,7 +377,8 @@ public class MainActivity extends Activity
             try {
                 Intent defaultIntent = fileChooserParams.createIntent();
                 if (defaultIntent != null) {
-                    chooserIntent = Intent.createChooser(defaultIntent, "Select Media / Files");
+                    chooserIntent = Intent.createChooser(defaultIntent,
+                            UiLanguage.text(this, R.string.choose_media_files));
                 }
             } catch (Throwable t) {
                 Log.w(TAG, "fileChooserParams.createIntent failed: " + t.getMessage());
@@ -397,7 +407,8 @@ public class MainActivity extends Activity
                     contentIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 }
             }
-            chooserIntent = Intent.createChooser(contentIntent, "Select Media / Files");
+            chooserIntent = Intent.createChooser(contentIntent,
+                    UiLanguage.text(this, R.string.choose_media_files));
         }
 
         try {

@@ -7,7 +7,9 @@ import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.util.Log;
 
+import com.agy.R;
 import com.agy.ui.MainActivity;
+import com.agy.ui.UiLanguage;
 import com.agy.util.SensitiveDataRedactor;
 
 /**
@@ -108,7 +110,8 @@ public final class CustomTabLauncher {
         fallback.addCategory(Intent.CATEGORY_BROWSABLE);
         fallback.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         try {
-            Intent chooser = Intent.createChooser(fallback, "Open in browser");
+            Intent chooser = Intent.createChooser(fallback,
+                    UiLanguage.text(context, R.string.open_in_browser));
             chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(chooser);
             Log.i(TAG, "opened chooser for url="

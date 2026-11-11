@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="splash_restarting">Restarting Antigravity</string>
+    <string name="splash_start_failed">Antigravity failed to start</string>
+    <string name="splash_unknown_error">Unknown error</string>
+    <string name="splash_retry">Retry</string>
+    <string name="splash_copy_logs">Copy Logs</string>
+    <string name="splash_save_logs">Save Logs</string>
+    <string name="core_start_timeout">The core did not start within %1$d seconds.</string>
+    <string name="core_start_error">Could not start the core service: %1$s</string>
+    <string name="core_notification_channel">Core</string>
+    <string name="core_notification_running">Core running</string>
+    <string name="core_notification_stopped">Core stopped. Open the app to retry.</string>
+    <string name="logs_copied">Logs copied to clipboard</string>
+    <string name="logs_copy_error">Failed to copy logs: %1$s</string>
+    <string name="logs_saved">Logs saved to %1$s</string>
+    <string name="logs_write_error">Could not write logs to Downloads</string>
+    <string name="logs_share">Share logs</string>
+    <string name="logs_export_error">Failed to export logs: %1$s</string>
+    <string name="choose_media_files">Select Media / Files</string>
+    <string name="open_in_browser">Open in browser</string>
+    <string name="download_storage_required">File access is required to download files.</string>
+    <string name="download_storage_denied">File access was denied.</string>
+    <string name="download_webview_unavailable">Cannot download this file because the WebView is unavailable.</string>
+    <string name="download_invalid_url">Invalid download address</string>
+    <string name="download_started">Downloading: %1$s</string>
+    <string name="download_saved">Saved to Downloads: %1$s</string>
+    <string name="download_save_error">Could not save the file: %1$s</string>
+    <string name="download_error">Could not download the file: %1$s</string>
+</resources>

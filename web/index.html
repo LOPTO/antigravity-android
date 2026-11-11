@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <title>Jetski Web</title>
@@ -64,7 +64,7 @@
     <!--
       Locked AGY UI load order (do not reorder):
       web_optimizations.js -> touch_model_menu.js -> theme_sync.js
-      -> bridge.core.js -> prism_bundle.js (defer) -> main.js
+      -> bridge.core.js -> i18n.js -> prism_bundle.js (defer) -> main.js
 
       bridge.cache.js was removed: main.js never referenced window.__agCache,
       and the fetch interceptor is an unnecessary failure surface. core's fetch
@@ -77,6 +77,7 @@
     <script src="./generated/patches/touch_model_menu.js"></script>
     <script src="./generated/patches/theme_sync.js"></script>
     <script src="./generated/bridge.core.js"></script>
+    <script src="./generated/boot/i18n.js"></script>
     <script defer src="./prism_bundle.js"></script>
     <script defer src="./generated/main.js"></script>
   </body>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="splash_restarting">正在重启 Antigravity</string>
+    <string name="splash_start_failed">Antigravity 启动失败</string>
+    <string name="splash_unknown_error">未知错误</string>
+    <string name="splash_retry">重试</string>
+    <string name="splash_copy_logs">复制日志</string>
+    <string name="splash_save_logs">保存日志</string>
+    <string name="core_start_timeout">核心服务在 %1$d 秒内未能启动。</string>
+    <string name="core_start_error">无法启动核心服务：%1$s</string>
+    <string name="core_notification_channel">核心服务</string>
+    <string name="core_notification_running">核心服务正在运行</string>
+    <string name="core_notification_stopped">核心服务已停止。请打开应用重试。</string>
+    <string name="logs_copied">已将日志复制到剪贴板</string>
+    <string name="logs_copy_error">复制日志失败：%1$s</string>
+    <string name="logs_saved">日志已保存到 %1$s</string>
+    <string name="logs_write_error">无法将日志写入下载目录</string>
+    <string name="logs_share">分享日志</string>
+    <string name="logs_export_error">导出日志失败：%1$s</string>
+    <string name="choose_media_files">选择媒体或文件</string>
+    <string name="open_in_browser">在浏览器中打开</string>
+    <string name="download_storage_required">下载文件需要文件访问权限。</string>
+    <string name="download_storage_denied">文件访问权限已被拒绝。</string>
+    <string name="download_webview_unavailable">WebView 不可用，无法下载此文件。</string>
+    <string name="download_invalid_url">下载地址无效</string>
+    <string name="download_started">正在下载：%1$s</string>
+    <string name="download_saved">已保存到下载目录：%1$s</string>
+    <string name="download_save_error">无法保存文件：%1$s</string>
+    <string name="download_error">无法下载文件：%1$s</string>
+</resources>

@@ -98,6 +98,13 @@ public final class AndroidBridge {
         ui.setDesktopMode(enabled);
     }
 
+    @JavascriptInterface
+    public void setUiLanguage(String token, String language) {
+        if (matchesNativeBridgeToken(token)) {
+            ui.setUiLanguage(language);
+        }
+    }
+
     // Native-only helpers used while preparing the trusted app document.
     public boolean isEngineReady() {
         return engine.isReady();
