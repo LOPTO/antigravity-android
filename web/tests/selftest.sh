@@ -38,6 +38,9 @@ for invalid in ('chat("Settings")', example + example):
 
 html = (web / "index.html").read_text(encoding="utf-8")
 assert html.index("./generated/boot/i18n.js") < html.index("./generated/main.js")
+bundle = (web / "generated" / "main.js").read_text(encoding="utf-8")
+assert 'Projects:{prefix:["projects:"],hasSections:!1,title:"Projects"}' in bundle
+assert 'Conversations:{prefix:["conversations:"],hasSections:!1,title:"Conversations"}' in bundle
 if sys.argv[2]:
     with ZipFile(sys.argv[2]) as apk:
         for path in ("index.html", "generated/boot/i18n.js", "generated/main.js"):
@@ -68,6 +71,7 @@ for (const [saved, language, label] of [[undefined, 'zh-CN', '\u754c\u9762\u8bed
   assert.equal(i18n.t('Welcome to '), language === 'zh-CN' ? '欢迎使用 ' : 'Welcome to ');
   assert.equal(i18n.t('Having trouble signing in?'),
     language === 'zh-CN' ? '登录遇到问题？' : 'Having trouble signing in?');
+  assert.equal(i18n.t('No Project'), language === 'zh-CN' ? '无项目' : 'No Project');
   assert.equal(i18n.t('constructor'), 'constructor');
   const other = language === 'en' ? 'zh-CN' : 'en';
   i18n.setLanguage(language);
