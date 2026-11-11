@@ -65,6 +65,9 @@ for (const [saved, language, label] of [[undefined, 'zh-CN', '\u754c\u9762\u8bed
   const i18n = window.__agyI18n;
   assert.equal(document.documentElement.lang, language);
   assert.equal(i18n.t('Interface Language'), label);
+  assert.equal(i18n.t('Welcome to '), language === 'zh-CN' ? '欢迎使用 ' : 'Welcome to ');
+  assert.equal(i18n.t('Having trouble signing in?'),
+    language === 'zh-CN' ? '登录遇到问题？' : 'Having trouble signing in?');
   assert.equal(i18n.t('constructor'), 'constructor');
   const other = language === 'en' ? 'zh-CN' : 'en';
   i18n.setLanguage(language);

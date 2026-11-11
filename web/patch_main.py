@@ -81,9 +81,9 @@ def patch_settings(content):
     return replace_unique(content, theme, f"{theme},{desktop},{language}", "Appearance pickers")
 
 
-def patch_navigation(content):
-    # The labels below render built-in screen names. Leave the route keys,
-    # test IDs and the names of user-created workspaces on their original paths.
+def patch_control_labels(content):
+    # Translate control labels at render time, after the route keys and model
+    # names have been resolved.
     replacements = (
         ("gNb({label:a,onClick:b})", "gNb({label:a,displayLabel:c,onClick:b})"),
         ('"flex-1 truncate text-sm text-foreground select-none"},a),A.createElement(W,{name:"chevron_right"',
@@ -94,13 +94,19 @@ def patch_navigation(content):
         ('["Workspaces",nr(b)]', '[__agyT("Workspaces"),nr(b)]'),
         ('["Projects",f]:e==="outside-of-project"?["Not in Project","Conversations"]',
          '[__agyT("Projects"),f]:e==="outside-of-project"?[__agyT("Not in Project"),__agyT("Conversations")]'),
+        ('`Select model, current: ${t}${v?` ${v}`:""}`',
+         '`${__agyT("Select model, current: ")}${t}${v?` ${v}`:""}`'),
+        ('`Load older messages, showing ${b} of ${c}`',
+         '`${__agyT("Load older messages, showing ")}${b}${__agyT(" of ")}${c}`'),
+        ('`No more older messages, showing ${b} of ${c}`',
+         '`${__agyT("No more older messages, showing ")}${b}${__agyT(" of ")}${c}`'),
     )
     for label in ("Shortcuts", "Provide Feedback", "Conversations"):
         literal = json.dumps(label)
         before = f"Q3,{{text:{literal},"
         content = replace_unique(content, before, before + f"label:__agyT({literal}),", "Settings sidebar")
     for before, after in replacements:
-        content = replace_unique(content, before, after, "Settings navigation")
+        content = replace_unique(content, before, after, "Control labels")
     return content
 
 
@@ -115,7 +121,7 @@ def patch_main(main_path, boot_path):
 
     patched = patch_settings(source)
     patched = localize_literals(patched, catalog)
-    patched = patch_navigation(patched)
+    patched = patch_control_labels(patched)
     translations = {english: entry["zh"] for english, entry in catalog.items()}
     boot = replace_unique(boot_path.read_text(encoding="utf-8"), CATALOG_MARKER,
                           json.dumps(translations, ensure_ascii=False, indent=2), "language catalog")
