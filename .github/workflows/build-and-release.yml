@@ -3,6 +3,8 @@ name: Build Simplified Chinese APK
 on:
   workflow_dispatch:
   push:
+    branches:
+      - codex/zh-cn
     tags:
       - 'v*-zh.*'
 
